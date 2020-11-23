@@ -1,9 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {auth} from '../../firebase/firebase.utils'
 import {ReactComponent as Logo} from '../../assets/crown.svg' // ReactComponent is a special way for importing .svg files
 import './header.styles.scss'
 
-const Header = (props) => {
+
+const Header = ({currentUser}) => {
     return (
         <div className='header'>
             <Link to='/' className='logo-container'>
@@ -16,6 +18,12 @@ const Header = (props) => {
                 <Link className='option' to='/shop'>
                     CONTACT
                 </Link>
+                {
+                    currentUser ?
+                    <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
+                    :
+                    <Link className='option' to='/signin'>SIGN IN</Link>
+                }
             </div>
         </div>
     )
